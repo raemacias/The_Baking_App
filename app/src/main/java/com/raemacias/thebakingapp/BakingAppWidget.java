@@ -10,7 +10,6 @@ import android.widget.TextView;
  * Implementation of App Widget functionality.
  */
 public class BakingAppWidget extends AppWidgetProvider {
-    TextView testing;
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {

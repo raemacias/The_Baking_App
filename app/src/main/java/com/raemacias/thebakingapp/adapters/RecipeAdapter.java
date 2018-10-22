@@ -33,7 +33,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
     private ListItemClickListener mOnClickListener;
     private boolean mTwoPane;
     private static final String INGREDIENTS = "Ingredients";
-    private static final String RECIPE = "RecipeName";
+    public static final String RECIPE = "RecipeName";
     private static final String STEPS = "Steps";
 
 
