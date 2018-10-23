@@ -86,6 +86,7 @@ public class RecipeStepFragment extends Fragment {
 
     }
 
+
     @Override
     public void onStart() {
         super.onStart();
@@ -137,6 +138,7 @@ public class RecipeStepFragment extends Fragment {
             Bundle bundle = this.getArguments();
                 videoUrl = step.getVideoURL();
                 if (videoUrl.isEmpty()) {
+                    playerView.setVisibility(View.GONE);
                     Toast.makeText(getContext(), "No video available.", Toast.LENGTH_SHORT).show();
 
                 } else {
