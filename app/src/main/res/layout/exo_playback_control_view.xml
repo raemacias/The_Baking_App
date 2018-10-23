@@ -5,47 +5,16 @@
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
     android:layoutDirection="ltr"
-    android:background="#CC000000"
     android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/player"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center"
-        android:paddingTop="4dp"
+        android:paddingTop="8dp"
         android:layout_marginTop="100dp"
         android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/exo_rew"
-            style="@style/ExoMediaButton.Rewind"/>
-
-        <ImageButton
-            android:id="@+id/exo_play"
-            style="@style/ExoMediaButton.Play"/>
-
-        <ImageButton
-            android:id="@+id/exo_pause"
-            style="@style/ExoMediaButton.Pause"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/player"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/recipeInstructions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/instructions"
-            android:textSize="20sp"
-            android:textColor="#fff"
-            android:padding="16dp"/>
-
     </LinearLayout>
 
 </RelativeLayout>

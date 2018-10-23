@@ -74,7 +74,7 @@ public class RecipeStepFragment extends Fragment {
             stepDescription = step.getDescription();
 //        }
 
-        recipeInstruction = rootView.findViewById(R.id.recipeInstructions);
+        recipeInstruction = rootView.findViewById(R.id.tv_step_description);
         recipeInstruction.setText(stepDescription);
 
         componentListener = new ComponentListener();
