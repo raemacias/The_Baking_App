@@ -2,6 +2,7 @@ package com.raemacias.thebakingapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -73,6 +74,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Info not available", Toast.LENGTH_SHORT).show();
         }
+
 
 
         // savedInstanceState is non-null when there is fragment state

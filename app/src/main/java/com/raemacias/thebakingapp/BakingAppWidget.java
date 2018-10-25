@@ -1,8 +1,11 @@
 package com.raemacias.thebakingapp;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 
@@ -14,10 +17,19 @@ public class BakingAppWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-        CharSequence widgetText = context.getString(R.string.appwidget_text);
+
+        CharSequence recipeName = context.getString(R.string.recipe_name);
+        CharSequence ingredientsList = context.getString(R.string.ingredients);
+
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.baking_app_widget);
-        views.setTextViewText(R.id.widget_recipe_name, widgetText);
+        views.setTextViewText(R.id.widget_recipe_name, recipeName);
+        views.setTextViewText(R.id.widget_ingredients_list, ingredientsList);
+
+
+        Intent intent = new Intent(context, RecipeListActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+        views.setOnClickPendingIntent(R.id.widget_layout, pendingIntent);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
