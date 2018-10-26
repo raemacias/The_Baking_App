@@ -44,6 +44,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
     public Recipe mRecipe;
     private boolean mTwoPane;
 
+    SharedPreferences myPrefs;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +78,22 @@ public class RecipeDetailActivity extends AppCompatActivity {
         }
 
 
+        //This came from the tutorial at https://appsandbiscuits.com/saving-data-with-sharedpreferences-android-9-9fecae19896a
+        myPrefs = getSharedPreferences (getString(R.string.appwidget_name), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = myPrefs.edit();
+
+        //The name key is the identifier for the item being stored.
+        //Bruce the Hoon is the value.
+        editor.putString(getString(R.string.appwidget_name), mRecipe.getName());
+        editor.putString(getString(R.string.appwidget_ingredients), mRecipe.getIngredients());
+        editor.apply();
+        editor.commit();
+
+        //Example:
+//        editor.putString("nameKey", nameEditText.getText().toString());
+//        editor.putInt("ageKey", Integer.parseInt(ageEditText.getText().toString()));
+
+
 
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity
@@ -86,19 +104,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
         //
         // http://developer.android.com/guide/components/fragments.html
         //
-//        if (savedInstanceState == null) {
-//            // Create the detail fragment and add it to the activity
-//            // using a fragment transaction.
-//            Bundle arguments = new Bundle();
-//            arguments.putString(RecipeDetailFragment.INGREDIENTS,
-//                    getIntent().getStringExtra(RecipeDetailFragment.INGREDIENTS));
-//            RecipeDetailFragment fragment = new RecipeDetailFragment();
-//            fragment.setArguments(arguments);
-//            getSupportFragmentManager().beginTransaction()
-//                    .add(R.id.recipe_detail_container, fragment)
-//                    .commit();
-//        }
-//    }
 
         if (findViewById(R.id.recipe_detail_container) != null) {
             mTwoPane = true;
@@ -107,7 +112,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
         View mRecyclerView = findViewById(R.id.recipe_list);
         assert mRecyclerView != null;
         setupRecyclerView((RecyclerView) mRecyclerView);
-
     }
 
     private void setupRecyclerView(@NonNull RecyclerView mRecyclerView) {
