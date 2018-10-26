@@ -33,7 +33,6 @@
         <activity
             android:name=".RecipeStepActivity"
             android:label="@string/title_recipe_detail"
-            android:configChanges="orientation|screenSize|layoutDirection"
             android:parentActivityName=".RecipeDetailActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
