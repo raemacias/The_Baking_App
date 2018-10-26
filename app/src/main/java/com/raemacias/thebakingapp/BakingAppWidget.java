@@ -26,11 +26,11 @@ public class BakingAppWidget extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.baking_app_widget);
 
         SharedPreferences myPrefs = context.getSharedPreferences(context.getString(R.string.appwidget_name), Context.MODE_PRIVATE);
-        String recipeName = myPrefs.getString(context.getString(R.string.appwidget_recipe_name), "Recipe Name");
+        String mRecipe = myPrefs.getString(context.getString(R.string.appwidget_recipe_name), "Recipe Name");
         String ingredientsList = myPrefs.getString(context.getString(R.string.appwidget_ingredients), "");
 
 
-        views.setTextViewText(R.id.widget_recipe_name, recipeName);
+        views.setTextViewText(R.id.widget_recipe_name, mRecipe);
         views.setTextViewText(R.id.widget_ingredients_list, ingredientsList);
 
 
