@@ -15,5 +15,6 @@
 
     <string name="appwidget_name">Baking App</string>
     <string name="appwidget_ingredients">Ingredients</string>
+    <string name="appwidget_recipe_name">Recipe Name</string>
 
 </resources>

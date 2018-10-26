@@ -3,6 +3,7 @@ package com.raemacias.thebakingapp;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,11 +19,17 @@ public class BakingAppWidget extends AppWidgetProvider {
                                 int appWidgetId) {
 
 
-        CharSequence recipeName = context.getString(R.string.recipe_name);
-        CharSequence ingredientsList = context.getString(R.string.ingredients);
+//        CharSequence recipeName = context.getString(R.string.recipe_name);
+//        CharSequence ingredientsList = context.getString(R.string.ingredients);
 
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.baking_app_widget);
+
+        SharedPreferences myPrefs = context.getSharedPreferences(context.getString(R.string.appwidget_name), Context.MODE_PRIVATE);
+        String recipeName = myPrefs.getString(context.getString(R.string.appwidget_recipe_name), "Recipe Name");
+        String ingredientsList = myPrefs.getString(context.getString(R.string.appwidget_ingredients), "");
+
+
         views.setTextViewText(R.id.widget_recipe_name, recipeName);
         views.setTextViewText(R.id.widget_ingredients_list, ingredientsList);
 
@@ -51,6 +58,15 @@ public class BakingAppWidget extends AppWidgetProvider {
     @Override
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        // called when the user selects a recipe in the app, to update the widget accordingly
+        ComponentName bakingAppWidget = new ComponentName(context.getPackageName(), BakingAppWidget.class.getName());
+        int[] appWidgetIds = AppWidgetManager.getInstance(context).getAppWidgetIds(bakingAppWidget);
+        onUpdate(context, AppWidgetManager.getInstance(context), appWidgetIds);
+        super.onReceive(context, intent);
     }
 }
 
