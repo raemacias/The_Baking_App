@@ -1,5 +1,7 @@
 package com.raemacias.thebakingapp;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +16,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,9 +48,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
     public Recipe mRecipe;
     private boolean mTwoPane;
 
-    SharedPreferences myPrefs;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +66,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra("Recipe")) {
             mRecipe = getIntent().getParcelableExtra("Recipe");
+            mIngredientList = getIntent().getParcelableArrayListExtra("Ingredients");
             mIngredientList = mRecipe.getIngredients();
             mStepList = mRecipe.getSteps();
             recipeName = mRecipe.getName();
@@ -78,16 +80,25 @@ public class RecipeDetailActivity extends AppCompatActivity {
         }
 
 
+        SharedPreferences myPrefs;
+
         //This came from the tutorial at https://appsandbiscuits.com/saving-data-with-sharedpreferences-android-9-9fecae19896a
         myPrefs = getSharedPreferences (getString(R.string.appwidget_name), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = myPrefs.edit();
 
         //The name key is the identifier for the item being stored.
         //Bruce the Hoon is the value.
-        editor.putString(getString(R.string.appwidget_name), mRecipe.getName());
-        editor.putString(getString(R.string.appwidget_ingredients), mRecipe.getIngredients());
+        editor.putString(getString(R.string.appwidget_recipe_name), mRecipe.getName());
+//        editor.putString(getString(R.string.appwidget_ingredients), mRecipe.getIngredients());
         editor.apply();
         editor.commit();
+
+        //This code came from https://stackoverflow.com/questions/3455123/programmatically-update-widget-from-activity-service-receiver
+        Intent intent1 = new Intent(this, BakingAppWidget.class);
+        intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
+        int ids[] = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), BakingAppWidget.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
+        sendBroadcast(intent1);
 
         //Example:
 //        editor.putString("nameKey", nameEditText.getText().toString());
@@ -202,7 +213,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
         @Override
         public int getItemCount() {
             return this.dataSet.size();
-
         }
 
         public class StepViewHolder extends RecyclerView.ViewHolder {
