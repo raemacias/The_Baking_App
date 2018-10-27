@@ -1,14 +1,7 @@
 package com.raemacias.thebakingapp;
 
-import android.content.Intent;
-import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.widget.TextView;
-
-import com.raemacias.thebakingapp.adapters.RecipeAdapter;
 
 import org.junit.Rule;
 import org.junit.Test;
