@@ -19,9 +19,6 @@ public class BakingAppWidget extends AppWidgetProvider {
                                 int appWidgetId) {
 
 
-//        CharSequence recipeName = context.getString(R.string.recipe_name);
-//        CharSequence ingredientsList = context.getString(R.string.ingredients);
-
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.baking_app_widget);
 

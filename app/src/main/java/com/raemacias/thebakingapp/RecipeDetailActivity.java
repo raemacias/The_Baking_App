@@ -10,14 +10,13 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +46,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     public ArrayList<Object> recipeObjects;
     public Recipe mRecipe;
     private boolean mTwoPane;
+    private List<Ingredient> mWidgetIngredient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,17 +79,29 @@ public class RecipeDetailActivity extends AppCompatActivity {
             Toast.makeText(this, "Info not available", Toast.LENGTH_SHORT).show();
         }
 
-
         SharedPreferences myPrefs;
+
+//        public void saveArrayList(ArrayList<String> mIngredientList, String key){
+//            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+//            SharedPreferences.Editor editor = prefs.edit();
+//            Gson gson = new Gson();
+//            String json = gson.toJson(mIngredientList);
+//            editor.putString(key, json);
+//            editor.apply();     // This line is IMPORTANT !!!
+//            editor.commit();
+//        }
+
+
+
 
         //This came from the tutorial at https://appsandbiscuits.com/saving-data-with-sharedpreferences-android-9-9fecae19896a
         myPrefs = getSharedPreferences (getString(R.string.appwidget_name), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = myPrefs.edit();
 
-        //The name key is the identifier for the item being stored.
-        //Bruce the Hoon is the value.
+//        //The name key is the identifier for the item being stored.
+//        //Bruce the Hoon is the value.
         editor.putString(getString(R.string.appwidget_recipe_name), mRecipe.getName());
-//        editor.putString(getString(R.string.appwidget_ingredients), mRecipe.getIngredients());
+        editor.putString(getString(R.string.appwidget_ingredients), getAndFormatIngredients());
         editor.apply();
         editor.commit();
 
@@ -123,6 +135,16 @@ public class RecipeDetailActivity extends AppCompatActivity {
         View mRecyclerView = findViewById(R.id.recipe_list);
         assert mRecyclerView != null;
         setupRecyclerView((RecyclerView) mRecyclerView);
+    }
+
+    private String getAndFormatIngredients() {
+        List<Ingredient> recipeIngredients = mRecipe.getIngredients();
+        String[] ingredients = new String[recipeIngredients.size()];
+        for (int i = 0; i < ingredients.length; i++) {
+            ingredients[i] = recipeIngredients.get(i).getQuantityUnitNameString();
+        }
+        return TextUtils.join("\n", ingredients);
+
     }
 
     private void setupRecyclerView(@NonNull RecyclerView mRecyclerView) {
