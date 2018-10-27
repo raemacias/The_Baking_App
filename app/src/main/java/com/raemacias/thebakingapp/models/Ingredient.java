@@ -8,6 +8,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class Ingredient implements Parcelable {
 
+    private final static String NO_UNIT_IN_JSON = "UNIT";
+    private String name;
+
         @SerializedName("quantity")
         @Expose
         private String quantity;
@@ -19,12 +22,29 @@ public class Ingredient implements Parcelable {
         private String ingredient;
         private final static long serialVersionUID = -2782697972996559776L;
 
-        /**
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    /**
          * No args constructor for use in serialization
          *
          */
         public Ingredient() {
         }
+
+    public String getQuantityUnitNameString() {
+        if (getMeasure().equals(NO_UNIT_IN_JSON)) {
+            return String.format("%s %s", getQuantity(), getIngredient());
+        } else {
+            return String.format("%s %s %s", getQuantity(), getMeasure().toLowerCase(), getIngredient());
+        }
+    }
 
         /**
          *

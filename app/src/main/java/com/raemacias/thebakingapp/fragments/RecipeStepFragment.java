@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
@@ -65,8 +64,6 @@ public class RecipeStepFragment extends Fragment {
    String videoUrl;
    Step step;
 
-//    private OnFragmentInteractionListener mListener;
-
     public RecipeStepFragment() {
         // Required empty public constructor
     }
@@ -78,10 +75,8 @@ public class RecipeStepFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.recipe_step_fragment, container, false);
 
         Bundle bundle = this.getArguments();
-//        if (bundle != null) {
             step = bundle.getParcelable("Steps");
             stepDescription = step.getDescription();
-//        }
 
         recipeInstruction = rootView.findViewById(R.id.tv_step_description);
         recipeInstruction.setText(stepDescription);
@@ -94,13 +89,9 @@ public class RecipeStepFragment extends Fragment {
             currentWindow = savedInstanceState.getInt(CURRENT_WINDOW_INDEX, 0);
             autoPlay = savedInstanceState.getBoolean(AUTOPLAY, false);
         }
-
-
             initializePlayer();
 
-
         return rootView;
-
     }
 
 
@@ -229,10 +220,6 @@ public class RecipeStepFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-//    public interface OnFragmentInteractionListener {
-//        // TODO: Update argument type and name
-//        void onFragmentInteraction(Uri uri);
-//    }
 
     public class ComponentListener implements ExoPlayer.EventListener, VideoRendererEventListener,
             AudioRendererEventListener{
